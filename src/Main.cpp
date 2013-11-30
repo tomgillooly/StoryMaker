@@ -1,6 +1,45 @@
 #include "gtest/gtest.h"
 #include "SelectableStoryPoint.h"
 
+std::vector<SelectableStoryPoint*> story;
+
+int storyLength = 3;
+int storyVariations = 3;
+
+std::string storyPoints[] = {
+		"A dragon appears!", 	"A wolf appears!",	"A negro appears!",
+		"You kill it!", 		"You rape it!", 	"You free it!",
+		"It runs!",				"It dies!",			"It rapes you!"
+};
+
+void cleanUp();
+
+void readInStory()
+{
+	for (int i = 0; i < storyLength; i++)
+	{
+		SelectableStoryPoint temp;
+		for (int j = 0; j < 3; j++)
+		{
+			temp.AddStoryPoint(storyPoints[(storyVariations * i) + j]);
+		}
+
+		story.push_back(new SelectableStoryPoint(temp));
+	}
+}
+
+void printRandomStory()
+{
+	std::cout << "You are in your village!" << std::endl;
+
+	for (unsigned int i = 0; i < story.size(); i++)
+	{
+		std::cout << (*story[i])[rand() % storyVariations] << std::endl;
+	}
+
+	std::cout << "Movie over, motherfucker!" << std::endl;
+}
+
 int main(int argc, char *argv[])
 {
 //	::testing::InitGoogleTest(&argc, argv);
@@ -9,21 +48,34 @@ int main(int argc, char *argv[])
 
 	srand(time(NULL));
 
-	SelectableStoryPoint storyPoint1;
-	storyPoint1.AddStoryPoint("A dragon appears!");
-	storyPoint1.AddStoryPoint("A wolf appears!");
-	storyPoint1.AddStoryPoint("A negro appears!");
+	readInStory();
 
-	SelectableStoryPoint storyPoint2;
+	std::string input = "\n";
 
-	storyPoint2.AddStoryPoint("You kill it!");
-	storyPoint2.AddStoryPoint("You rape it!");
-	storyPoint2.AddStoryPoint("You free it!");
 
-	std::cout << "You are in your village!" << std::endl;
-	std::cout << storyPoint1[rand() % 3] << std::endl;
-	std::cout << storyPoint2[rand() % 3] << std::endl;
-	std::cout << "Movie over, motherfucker!" << std::endl;
+	while(input == "\n")
+	{
+		printRandomStory();
+
+		std::cout << "Another story?" << std::endl;
+//		std::cin >> input;
+//		std::cin.ignore();
+
+		input = std::cin.get();
+
+	}
+
+	cleanUp();
+
 
 	return 0;
+}
+
+
+void cleanUp()
+{
+	for (unsigned int i = 0; i < story.size(); i++)
+	{
+			delete story[i];
+	}
 }

@@ -3,13 +3,15 @@
 
 std::vector<SelectableStoryPoint*> story;
 
-int storyLength = 3;
+int storyLength = 5;
 int storyVariations = 3;
 
 std::string storyPoints[] = {
-		"A dragon appears!", 	"A wolf appears!",	"A negro appears!",
-		"You kill it!", 		"You rape it!", 	"You free it!",
-		"It runs!",				"It dies!",			"It rapes you!"
+		"A dragon appears!", 		"A wolf appears!",			"A negro appears!",
+		"You slash it!", 			"You rape it!", 			"You free it!",
+		"It runs!",					"It's dying!",					"It rapes you!",
+		"Your mother intervenes!",	"Your father intervenes!",	"Your dog intervenes!",
+		"It's not very effective!",	"It stops!",				"It continues, but faster!"
 };
 
 void cleanUp();
@@ -57,7 +59,7 @@ int main(int argc, char *argv[])
 	{
 		printRandomStory();
 
-		std::cout << "Another story?" << std::endl;
+		std::cout << std::endl  << "Another story?" << std::endl;
 //		std::cin >> input;
 //		std::cin.ignore();
 
